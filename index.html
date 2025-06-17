@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="grid ">
+            <!-- Basic form -->
+            <form>
+                <label>Email:</label>
+                <input type="email" required />
+
+                <label>Age:</label>
+                <input type="number" min="18" max="100" required />
+
+                <label>Password:</label>
+                <input type="password" minlength="6" required />
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <!--  Basic JavaScript Validation -->
+
+            <form onsubmit="return validateForm()">
+                <input type="text" id="name" placeholder="Name" required />
+                <input type="email" id="email" placeholder="Email" required />
+                <button type="submit">Submit</button>
+            </form>
+
+            <script>
+                function validateForm() {
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+
+                    if (name === '') {
+                        alert('Name is required');
+                        return false;
+                    }
+
+                    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                    if (!emailPattern.test(email)) {
+                        alert('Invalid email format');
+                        return false;
+                    }
+
+                    return true;
+                }
+            </script>
+
+            <!-- Intermediate JavaScript Validation -->
+            <form id="myForm" novalidate>
+                <div>
+                    <input type="text" id="username" placeholder="Username" />
+                    <span id="usernameError" style="color:red;"></span>
+                </div>
+                <div>
+                    <input type="password" id="password" placeholder="Password" />
+                    <span id="passwordError" style="color:red;"></span>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+            <script>
+                document.getElementById('myForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const username = document.getElementById('username').value.trim();
+                    const password = document.getElementById('password').value.trim();
+                    let isValid = true;
+
+                    if (username.length < 3) {
+                        document.getElementById('usernameError').textContent = 'Username must be at least 3 characters.';
+                        isValid = false;
+                    } else {
+                        document.getElementById('usernameError').textContent = '';
+                    }
+
+                    if (password.length < 6) {
+                        document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+                        isValid = false;
+                    } else {
+                        document.getElementById('passwordError').textContent = '';
+                    }
+
+                    if (isValid) {
+                        this.submit();
+                    }
+                });
+            </script>
+
+            <!--  Advanced JavaScript Validation -->
+            <form>
+                <input type="text" id="phone" placeholder="Enter phone" />
+                <span id="phoneError"></span>
+            </form>
+            <script>
+                document.getElementById('phone').addEventListener('keyup', function () {
+                    const phone = this.value.trim();
+                    const pattern = /^[0-9]{10}$/;
+
+                    if (!pattern.test(phone)) {
+                        document.getElementById('phoneError').textContent = 'Phone must be 10 digits.';
+                    } else {
+                        document.getElementById('phoneError').textContent = '';
+                    }
+                });
+            </script>
+
+            <!-- Password Strength Checker: -->
+            <form>
+                <input type="password" id="pass" placeholder="Password" />
+                <span id="strength"></span>
+            </form>
+            <script>
+                document.getElementById('pass').addEventListener('input', function () {
+                    const value = this.value;
+                    let strength = 'Weak';
+
+                    if (value.length >= 8 && /[A-Z]/.test(value) && /[0-9]/.test(value) && /[@$!%*?&]/.test(value)) {
+                        strength = 'Strong';
+                    } else if (value.length >= 6) {
+                        strength = 'Medium';
+                    }
+
+                    document.getElementById('strength').textContent = 'Strength: ' + strength;
+                });
+            </script>
+
+        </div>
+    </div>
+</body>
+
+</html>
